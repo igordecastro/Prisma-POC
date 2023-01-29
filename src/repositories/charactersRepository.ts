@@ -33,8 +33,18 @@ async function deleteCharacter(characterId: number) {
     })
 }
 
+async function updateCharacter(id: number, character: CharacterInput) {
+    return await prisma.public_characters.update({
+      where: {
+        id,
+      },
+      data: character,
+    });
+  }
+
 export const characters = {
     createCharacter,
     deleteCharacter,
-    listAllCharacters
+    listAllCharacters,
+    updateCharacter
 }

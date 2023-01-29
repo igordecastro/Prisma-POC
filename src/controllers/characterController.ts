@@ -36,8 +36,21 @@ async function deleteCharacter(req: Request, res: Response) {
     }
 }
 
+async function updateCharacter(req: Request, res: Response) {
+    const { id } = req.params;
+
+    try{
+        characters.updateCharacter(parseInt(id), req.body);
+
+        res.sendStatus(200)
+    } catch (err) {
+        res.status(500).send(err.message)
+    }
+}
+
 export {
     listAllCharacters,
     postCharacter,
-    deleteCharacter
+    deleteCharacter,
+    updateCharacter
 }
