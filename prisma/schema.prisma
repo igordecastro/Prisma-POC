@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Actor {
+  id          Int         @id(map: "actors_pk") @default(autoincrement())
+  name        String      @unique @db.VarChar(40)
+  age         Int
+  nationality String      @db.VarChar(20)
+  Character   Character[]
+
+  @@map("public.actors")
+}
+
+model Character {
+  id             Int    @id(map: "characters_pk") @default(autoincrement())
+  name           String @unique @db.VarChar(50)
+  actor          Actor  @relation(fields: [interpreted_by], references: [id])
+  interpreted_by Int
+  breed          Specie @relation(fields: [specie], references: [id])
+  specie         Int
+  status         String @db.VarChar(10)
+  victims_count  Int
+
+  @@map("public.characters")
+}
+
+model Specie {
+  id        Int         @id(map: "species_pk") @default(autoincrement())
+  specie    String      @unique @db.VarChar(40)
+  strength  Int
+  Character Character[]
+
+  @@map("public.species")
+}
