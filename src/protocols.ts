@@ -15,3 +15,9 @@ export type Actor = {
   age: number,
   nationality: string
 }
+
+export type Specie = {
+  id: number,
+  specie: string,
+  strength: number
+}
